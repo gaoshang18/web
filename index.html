@@ -15,6 +15,8 @@
     <p>⑥ 企业总部和分支采用PPP 广域网链路连接。并采用CHAP对链路做认证。</p>
     <p>⑦ 企业总部和分支采用ospf 路由协议连接。</p>
     <img src="clipboard.png"  alt="三层架构园区网拓扑图" />
+
+    
     <h1>具体步骤</h1>
     <p>① 用户的网关配置在核心交换机<br>
   ② 企业内网划分多个vlan ，减少广播域大小，提高网络稳定性<br>
@@ -48,7 +50,7 @@
   [sw4]user-interface vty 0 4<br>
   [sw4-ui-vty0-4]authentication-mode aaa<br>
   [sw4-ui-vty0-4]q<br>
-  <hr>
+  <hr />
   sw5：<br>
   <Huawei>system-view<br>
   Enter system view, return user view with Ctrl+Z.<br>
@@ -80,7 +82,7 @@
   <sw5>save<br>
   The current configuration will be written to the device.<br>
   Are you sure to continue?[Y/N]y<br>
-  <hr>
+  <hr />
   sw2<br>
 
   <Huawei>system-view<br>
@@ -108,7 +110,7 @@
   <sw2>save<br>
   The current configuration will be written to the device.<br>
   Are you sure to continue?[Y/N]y<br>
-  <hr>
+  <hr />
   sw3
 
   <Huawei>system-view<br>
@@ -141,7 +143,7 @@
   The current configuration will be written to the device.<br>
   Are you sure to continue?[Y/N]y<br>
 
-  <hr>
+  <hr />
   sw1<br>
 
   <Huawei>system-view<br>
@@ -216,7 +218,7 @@
   <sw1>save<br>
   The current configuration will be written to the device.<br>
   Are you sure to continue?[Y/N]y<br>
-  <hr>
+  <hr />
   R1<br>
   <Huawei>sys<br>
   <Huawei>system-view<br>
@@ -241,9 +243,9 @@
   [R1-aaa]local-user shang.gao password cipher sgao18<br>
   [R1-aaa]local-user shang.gao service-type ppp<br>
   [R1-Serial2/0/1]ppp authentication-mode chap#需对端设置认证<br>
-  <hr>
+  <hr />
   R2<br>
-  <hr>
+  <hr />
   R3<br>
   [r3]int Serial 2/0/1<br>
   [r3-Serial2/0/1] ip address 192.168.253.2 255.255.255.0<br>
