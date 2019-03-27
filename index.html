@@ -17,243 +17,243 @@
     <img src="clipboard.png"  alt="三层架构园区网拓扑图" />
     <h1>具体步骤</h1>
     <p>① 用户的网关配置在核心交换机<br>
-② 企业内网划分多个vlan ，减少广播域大小，提高网络稳定性<br>
-sw4 sw5 sw3<br>
-划分vlan<br>
-配置trunk<br>
-sw4：<br>
-<Huawei>system-view<br>
-Enter system view, return user view with Ctrl+Z.<br>
-[Huawei]sysname sw4<br>
-[sw4]vlan batch 10 999<br>
-[sw4]stp mode rstp<br>
-[sw4]port-group group-member  Ethernet 0/0/1 to Ethernet 0/0/22<br>
-[sw4-port-group]port link-type access<br>
-[sw4-port-group]port default vlan 10<br>
-[sw4-port-group]stp edged-port enable<br>
-[sw4-port-group]q<br>
-[sw4]int GigabitEthernet 0/0/1<br>
-[sw4-GigabitEthernet0/0/1]port link-type trunk<br>
-[sw4-GigabitEthernet0/0/1]port trunk allow-pass vlan 10 999<br>
-[sw4-GigabitEthernet0/0/1]q<br>
-[sw4]interface Vlanif 999<br>
-[sw4-Vlanif999]ip addr 192.168.255.4 24<br>
-[sw4-Vlanif999]q<br>
-[sw4]ip route-static 0.0.0.0 0 192.168.255.1<br>
-[sw4]telnet server enable<br>
-[sw4]aaa<br>
-[sw4-aaa]local-user shang.gao password cipher sgao18 privilege level 3<br>
-[sw4-aaa]local-user shang.gao service-type telnet<br>
-[sw4-aaa]q<br>
-[sw4]user-interface vty 0 4<br>
-[sw4-ui-vty0-4]authentication-mode aaa<br>
-[sw4-ui-vty0-4]q<br>
+  ② 企业内网划分多个vlan ，减少广播域大小，提高网络稳定性<br>
+  sw4 sw5 sw3<br>
+  划分vlan<br>
+  配置trunk<br>
+  sw4：<br>
+  <Huawei>system-view<br>
+  Enter system view, return user view with Ctrl+Z.<br>
+  [Huawei]sysname sw4<br>
+  [sw4]vlan batch 10 999<br>
+  [sw4]stp mode rstp<br>
+  [sw4]port-group group-member  Ethernet 0/0/1 to Ethernet 0/0/22<br>
+  [sw4-port-group]port link-type access<br>
+  [sw4-port-group]port default vlan 10<br>
+  [sw4-port-group]stp edged-port enable<br>
+  [sw4-port-group]q<br>
+  [sw4]int GigabitEthernet 0/0/1<br>
+  [sw4-GigabitEthernet0/0/1]port link-type trunk<br>
+  [sw4-GigabitEthernet0/0/1]port trunk allow-pass vlan 10 999<br>
+  [sw4-GigabitEthernet0/0/1]q<br>
+  [sw4]interface Vlanif 999<br>
+  [sw4-Vlanif999]ip addr 192.168.255.4 24<br>
+  [sw4-Vlanif999]q<br>
+  [sw4]ip route-static 0.0.0.0 0 192.168.255.1<br>
+  [sw4]telnet server enable<br>
+  [sw4]aaa<br>
+  [sw4-aaa]local-user shang.gao password cipher sgao18 privilege level 3<br>
+  [sw4-aaa]local-user shang.gao service-type telnet<br>
+  [sw4-aaa]q<br>
+  [sw4]user-interface vty 0 4<br>
+  [sw4-ui-vty0-4]authentication-mode aaa<br>
+  [sw4-ui-vty0-4]q<br>
+  <hr>
+  sw5：<br>
+  <Huawei>system-view<br>
+  Enter system view, return user view with Ctrl+Z.<br>
+  [Huawei]sysname sw5<br>
+  [sw5]vlan batch 20 999<br>
+  [sw5]stp mode rstp<br>
+  [sw5]port-group group-member  Ethernet 0/0/2 to Ethernet 0/0/22<br>
+  [sw5-port-group]port link-type access<br>
+  [sw5-port-group]port default vlan 20<br>
+  [sw5-port-group]stp edged-port enable<br>
+  [sw5-port-group]q<br>
+  [sw5]int Ethernet 0/0/1<br>
+  [sw5-Ethernet0/0/1]port link-type trunk<br>
+  [sw5-Ethernet 0/0/1]port trunk allow-pass vlan 20 999<br>
+  [sw5-Ethernet 0/0/1]q<br>
+  [sw5]interface Vlanif 999<br>
+  [sw5-Vlanif999]ip addr 192.168.255.5 24<br>
+  [sw5-Vlanif999]q<br>
+  [sw5]ip route-static 0.0.0.0 0 192.168.255.1<br>
+  [sw5]telnet server enable<br>
+  [sw5]aaa<br>
+  [sw5-aaa]local-user shang.gao password cipher sgao18 privilege level 3<br>
+  [sw5-aaa]local-user shang.gao service-type telnet<br>
+  [sw5-aaa]q<br>
+  [sw5]user-interface vty 0 4<br>
+  [sw5-ui-vty0-4]authentication-mode aaa<br>
+  [sw5-ui-vty0-4]q<br>
+  [sw5]q<br>
+  <sw5>save<br>
+  The current configuration will be written to the device.<br>
+  Are you sure to continue?[Y/N]y<br>
+  <hr>
+  sw2<br>
 
-sw5：<br>
-<Huawei>system-view<br>
-Enter system view, return user view with Ctrl+Z.<br>
-[Huawei]sysname sw5<br>
-[sw5]vlan batch 20 999<br>
-[sw5]stp mode rstp<br>
-[sw5]port-group group-member  Ethernet 0/0/2 to Ethernet 0/0/22<br>
-[sw5-port-group]port link-type access<br>
-[sw5-port-group]port default vlan 20<br>
-[sw5-port-group]stp edged-port enable<br>
-[sw5-port-group]q<br>
-[sw5]int Ethernet 0/0/1<br>
-[sw5-Ethernet0/0/1]port link-type trunk<br>
-[sw5-Ethernet 0/0/1]port trunk allow-pass vlan 20 999<br>
-[sw5-Ethernet 0/0/1]q<br>
-[sw5]interface Vlanif 999<br>
-[sw5-Vlanif999]ip addr 192.168.255.5 24<br>
-[sw5-Vlanif999]q<br>
-[sw5]ip route-static 0.0.0.0 0 192.168.255.1<br>
-[sw5]telnet server enable<br>
-[sw5]aaa<br>
-[sw5-aaa]local-user shang.gao password cipher sgao18 privilege level 3<br>
-[sw5-aaa]local-user shang.gao service-type telnet<br>
-[sw5-aaa]q<br>
-[sw5]user-interface vty 0 4<br>
-[sw5-ui-vty0-4]authentication-mode aaa<br>
-[sw5-ui-vty0-4]q<br>
-[sw5]q<br>
-<sw5>save<br>
-The current configuration will be written to the device.<br>
-Are you sure to continue?[Y/N]y<br>
+  <Huawei>system-view<br>
+  Enter system view, return user view with Ctrl+Z.<br>
+  [Huawei]sysname sw2<br>
+  [sw2]vlan batch 10 20 999<br>
+  [sw2]stp mode rstp<br>
+  [sw2]port-group group-member  GigabitEthernet0/0/1 Ethernet 0/0/1 GigabitEthernet0/0/2<br>
+  [sw2-port-group]port link-type trunk<br>
+  [sw2-port-group]port trunk allow-pass vlan 10 20 999<br>
+  [sw2-port-group]q<br>
+  [sw2]interface Vlanif 999<br>
+  [sw2-Vlanif999]ip addr 192.168.255.2 24<br>
+  [sw2-Vlanif999]q<br>
+  [sw2]ip route-static 0.0.0.0 0 192.168.255.1<br>
+  [sw2]telnet server enable<br>
+  [sw2]aaa<br>
+  [sw2-aaa]local-user shang.gao password cipher sgao18 privilege level 3<br>
+  [sw2-aaa]local-user shang.gao service-type telnet<br>
+  [sw2-aaa]q<br>
+  [sw2]user-interface vty 0 4<br>
+  [sw2-ui-vty0-4]authentication-mode aaa<br>
+  [sw2-ui-vty0-4]q<br>
+  [sw2]q<br>
+  <sw2>save<br>
+  The current configuration will be written to the device.<br>
+  Are you sure to continue?[Y/N]y<br>
+  <hr>
+  sw3
 
-sw2<br>
+  <Huawei>system-view<br>
+  Enter system view, return user view with Ctrl+Z.<br>
+  [Huawei]sysname sw2<br>
+  [sw3]vlan batch 200 999<br>
+  [sw3]stp mode rstp<br>
+  [sw3]port-group group-member   Ethernet 0/0/1 Ethernet 0/0/2<br>
+  [sw3-port-group]port default vlan 20<br>
+  [sw3-port-group]stp edged-port enable<br>
+  [sw3-port-group]q<br>
+  [sw3]int GigabitEthernet0/0/1<br>
+  [sw3-GigabitEthernet0/0/1]port link-type trunk<br>
+  [sw3-GigabitEthernet0/0/1]port trunk allow-pass vlan 200 999<br>
+  [sw3-GigabitEthernet0/0/1]q<br>
+  [sw3]interface Vlanif 999<br>
+  [sw3-Vlanif999]ip addr 192.168.255.3 24<br>
+  [sw3-Vlanif999]q<br>
+  [sw3]ip route-static 0.0.0.0 0 192.168.255.1<br>
+  [sw3]telnet server enable<br>
+  [sw3]aaa<br>
+  [sw3-aaa]local-user shang.gao password cipher sgao18 privilege level 3<br>
+  [sw3-aaa]local-user shang.gao service-type telnet<br>
+  [sw3-aaa]q<br>
+  [sw3]user-interface vty 0 4<br>
+  [sw3-ui-vty0-4]authentication-mode aaa<br>
+  [sw3-ui-vty0-4]q<br><
+  [sw3]q<br>
+  <sw3>save<br>
+  The current configuration will be written to the device.<br>
+  Are you sure to continue?[Y/N]y<br>
 
-<Huawei>system-view<br>
-Enter system view, return user view with Ctrl+Z.<br>
-[Huawei]sysname sw2<br>
-[sw2]vlan batch 10 20 999<br>
-[sw2]stp mode rstp<br>
-[sw2]port-group group-member  GigabitEthernet0/0/1 Ethernet 0/0/1 GigabitEthernet0/0/2<br>
-[sw2-port-group]port link-type trunk<br>
-[sw2-port-group]port trunk allow-pass vlan 10 20 999<br>
-[sw2-port-group]q<br>
-[sw2]interface Vlanif 999<br>
-[sw2-Vlanif999]ip addr 192.168.255.2 24<br>
-[sw2-Vlanif999]q<br>
-[sw2]ip route-static 0.0.0.0 0 192.168.255.1<br>
-[sw2]telnet server enable<br>
-[sw2]aaa<br>
-[sw2-aaa]local-user shang.gao password cipher sgao18 privilege level 3<br>
-[sw2-aaa]local-user shang.gao service-type telnet<br>
-[sw2-aaa]q<br>
-[sw2]user-interface vty 0 4<br>
-[sw2-ui-vty0-4]authentication-mode aaa<br>
-[sw2-ui-vty0-4]q<br>
-[sw2]q<br>
-<sw2>save<br>
-The current configuration will be written to the device.<br>
-Are you sure to continue?[Y/N]y<br>
+  <hr>
+  sw1<br>
 
-sw3
-
-<Huawei>system-view<br>
-Enter system view, return user view with Ctrl+Z.<br>
-[Huawei]sysname sw2<br>
-[sw3]vlan batch 200 999<br>
-[sw3]stp mode rstp<br>
-[sw3]port-group group-member   Ethernet 0/0/1 Ethernet 0/0/2<br>
-[sw3-port-group]port default vlan 20<br>
-[sw3-port-group]stp edged-port enable<br>
-[sw3-port-group]q<br>
-[sw3]int GigabitEthernet0/0/1<br>
-[sw3-GigabitEthernet0/0/1]port link-type trunk<br>
-[sw3-GigabitEthernet0/0/1]port trunk allow-pass vlan 200 999<br>
-[sw3-GigabitEthernet0/0/1]q<br>
-[sw3]interface Vlanif 999<br>
-[sw3-Vlanif999]ip addr 192.168.255.3 24<br>
-[sw3-Vlanif999]q<br>
-[sw3]ip route-static 0.0.0.0 0 192.168.255.1<br>
-[sw3]telnet server enable<br>
-[sw3]aaa<br>
-[sw3-aaa]local-user shang.gao password cipher sgao18 privilege level 3<br>
-[sw3-aaa]local-user shang.gao service-type telnet<br>
-[sw3-aaa]q<br>
-[sw3]user-interface vty 0 4<br>
-[sw3-ui-vty0-4]authentication-mode aaa<br>
-[sw3-ui-vty0-4]q<br><
-[sw3]q<br>
-<sw3>save<br>
-The current configuration will be written to the device.<br>
-Are you sure to continue?[Y/N]y<br>
-
-
-sw1<br>
-
-<Huawei>system-view<br>
-Enter system view, return user view with Ctrl+Z.<br>
-[Huawei]sysname sw2<br>
-[sw1][sw1]vlan batch 10 20 200 999 800<br>
-[sw1]stp mode rstp<br>
-[sw1]stp priority 0<br>
-[sw1]int GigabitEthernet 0/0/1<br>
-[sw1-GigabitEthernet0/0/1]port link-type trunk<br>
-[sw1-GigabitEthernet0/0/1]port trunk allow-pass vlan 10 20 999<br>
-[sw1-GigabitEthernet0/0/1]int gi0/0/2<br>
-[sw1-GigabitEthernet0/0/2]port link-type trunk<br>
-[sw1-GigabitEthernet0/0/2]port trunk allow-pass  vlan 200 999<br>
-[sw1-GigabitEthernet0/0/2]int gi0/0/3<br>
-[sw1-GigabitEthernet0/0/3]port link-type access<br>
-[sw1-GigabitEthernet0/0/3]port default vlan 800<br>
-[sw1-GigabitEthernet0/0/3]q<br>
-[sw1]interface Vlanif 800<br>
-[sw1-Vlanif800]ip addr 192.168.254.1 24<br>
-[sw1]dhcp enable<br>
-[sw1]ip pool vlan_10<br>
-Info:It's successful to create an IP address pool.<br>
-[sw1-ip-pool-vlan_10]network 192.168.10.0 mask 255.255.255.0<br>
-[sw1-ip-pool-vlan_10]gateway-list 192.168.10.1<br>
-[sw1-ip-pool-vlan_10]dns-list 8.8.8.8<br>
-[sw1-ip-pool-vlan_10]q<br>
-[sw1]ip pool vlan_20<br>
-[sw1-ip-pool-vlan_20]network 192.168.20.0 mask 255.255.255.0<br>
-[sw1-ip-pool-vlan_20]gateway-list 192.168.20.1<br>
-[sw1-ip-pool-vlan_20]dns-list 8.8.8.8<br>
-[sw1-ip-pool-vlan_20]q<br>
-[sw1]ip pool vlan_200<br>
-[sw1-ip-pool-vlan_200]network 192.168.200.0 mask 255.255.255.0<br>
-[sw1-ip-pool-vlan_200]gateway-list 192.168.200.1<br>
-[sw1-ip-pool-vlan_200]dns-list 8.8.8.8<br>
-[sw1-ip-pool-vlan_200]q<br>
-[sw1]int vlan 10<br>
-[sw1-Vlanif10]dhcp select global<br>
-[sw1]int vlan 20<br>
-[sw1-Vlanif20]dhcp select global<br>
-[sw1]int vlan 200<br>
-[sw1-Vlanif200]dhcp select global<br>
-[sw1-Vlanif200]q<br>
-[sw1]int Vlanif 10<br>
-[sw1-Vlanif10]ip address 192.168.10.1 24<br>
-[sw1-Vlanif10]int vlan 20<br>
-[sw1-Vlanif20]ip addr 192.168.20.1 24<br>
-[sw1-Vlanif20]int vlan 200<br>
-[sw1-Vlanif200]ip addr 192.168.200.1 24<br>
-[sw1]interface Vlanif 999<br>
-[sw1-Vlanif999]ip addr 192.168.255.1 24<br>
-[sw1-Vlanif999]q<br>
-[sw1]telnet server enable<br>
-[sw1]ip route-static 0.0.0.0 0 192.168.254.2 #r2路由<br>
-[sw1]aaa<br>
-[sw1-aaa]local-user shang.gao password cipher sgao18 privilege level 3<br>
-[sw1-aaa]local-user shang.gao service-type telnet<br>
-[sw1-aaa]q<br>
-[sw1]user-interface vty 0 4<br>
-[sw1-ui-vty0-4]authentication-mode aaa<br>
-[sw1-ui-vty0-4]q<br>
-[sw1]ospf 1<br>
-[sw1-ospf-1]area 0<br>
-[sw1-ospf-1-area-0.0.0.0]network 192.168.10.0 0.0.0.255<br>
-[sw1-ospf-1-area-0.0.0.0]network 192.168.20.0 0.0.0.255<br>
-[sw1-ospf-1-area-0.0.0.0]network 192.168.200.0 0.0.0.255<br>
-[sw1-ospf-1-area-0.0.0.0] network 192.168.255.0 0.0.0.255<br>
-[sw1-ospf-1-area-0.0.0.0] network 192.168.254.0 0.0.0.255<br>
-[sw1-ospf-1-area-0.0.0.0]q<br>
-[sw1]q<br>
-<sw1>save<br>
-The current configuration will be written to the device.<br>
-Are you sure to continue?[Y/N]y<br>
-
-R1<br>
-<Huawei>sys<br>
-<Huawei>system-view<br>
-Enter system view, return user view with Ctrl+Z.<br>
-[Huawei]sysname R1<br>
-[R1] ip route-static 0.0.0.0 0 12.1.1.6<br>
-[R1]acl 2000<br>
-[R1-acl-basic-2000]rule 5 permit source 192.168.0.0 0.0.255.255<br>
-[R1-acl-basic-2000]interface GigabitEthernet  0/0/1<br>
-[R1-GigabitEthernet0/0/1]nat outbound 2000<br>
-[R1-GigabitEthernet0/0/1]ip address 12.1.1.1 255.255.255.248<br>
-[R1-GigabitEthernet0/0/1]interface GigabitEthernet 0/0/0<br>
-[R1-GigabitEthernet0/0/0]ip addr 192.168.254.2 24<br>
-[R1-GigabitEthernet0/0/0]interface  Serial 2/0/1<br>
-[R1-Serial2/0/1]ip address 192.168.253.1 24<br>
-[R1]ospf 1<br>
-[R1-ospf-1]area 0<br>
-[R1-ospf-1-area-0.0.0.0] network 192.168.253.0 0.0.0.255<br>
-[R1-ospf-1-area-0.0.0.0] network 192.168.254.0 0.0.0.255<br>
-[R1-ospf-1-area-0.0.0.0]q<br>
-[R1]aaa<br>
-[R1-aaa]local-user shang.gao password cipher sgao18<br>
-[R1-aaa]local-user shang.gao service-type ppp<br>
-[R1-Serial2/0/1]ppp authentication-mode chap#需对端设置认证<br>
-
-R2<br>
-
-R3<br>
-[r3]int Serial 2/0/1<br>
-[r3-Serial2/0/1] ip address 192.168.253.2 255.255.255.0<br>
-[r3-Serial2/0/1]ppp chap user shang.gao<br>
-[r3-Serial2/0/1]ppp chap password  simple sgao18<br>
-[r3-Serial2/0/1]interface GigabitEthernet0/0/0<br>
-[r3-GigabitEthernet0/0/0]ip address 192.168.100.1 255.255.255.0<br>
-[r3]ospf 1<br>
-[r3-ospf-1]area 0.0.0.0<br>
-[r3-ospf-1-area-0.0.0.0] network 192.168.100.0 0.0.0.255<br>
-[r3-ospf-1-area-0.0.0.0] network 192.168.253.0 0.0.0.255 </p>
+  <Huawei>system-view<br>
+  Enter system view, return user view with Ctrl+Z.<br>
+  [Huawei]sysname sw2<br>
+  [sw1][sw1]vlan batch 10 20 200 999 800<br>
+  [sw1]stp mode rstp<br>
+  [sw1]stp priority 0<br>
+  [sw1]int GigabitEthernet 0/0/1<br>
+  [sw1-GigabitEthernet0/0/1]port link-type trunk<br>
+  [sw1-GigabitEthernet0/0/1]port trunk allow-pass vlan 10 20 999<br>
+  [sw1-GigabitEthernet0/0/1]int gi0/0/2<br>
+  [sw1-GigabitEthernet0/0/2]port link-type trunk<br>
+  [sw1-GigabitEthernet0/0/2]port trunk allow-pass  vlan 200 999<br>
+  [sw1-GigabitEthernet0/0/2]int gi0/0/3<br>
+  [sw1-GigabitEthernet0/0/3]port link-type access<br>
+  [sw1-GigabitEthernet0/0/3]port default vlan 800<br>
+  [sw1-GigabitEthernet0/0/3]q<br>
+  [sw1]interface Vlanif 800<br>
+  [sw1-Vlanif800]ip addr 192.168.254.1 24<br>
+  [sw1]dhcp enable<br>
+  [sw1]ip pool vlan_10<br>
+  Info:It's successful to create an IP address pool.<br>
+  [sw1-ip-pool-vlan_10]network 192.168.10.0 mask 255.255.255.0<br>
+  [sw1-ip-pool-vlan_10]gateway-list 192.168.10.1<br>
+  [sw1-ip-pool-vlan_10]dns-list 8.8.8.8<br>
+  [sw1-ip-pool-vlan_10]q<br>
+  [sw1]ip pool vlan_20<br>
+  [sw1-ip-pool-vlan_20]network 192.168.20.0 mask 255.255.255.0<br>
+  [sw1-ip-pool-vlan_20]gateway-list 192.168.20.1<br>
+  [sw1-ip-pool-vlan_20]dns-list 8.8.8.8<br>
+  [sw1-ip-pool-vlan_20]q<br>
+  [sw1]ip pool vlan_200<br>
+  [sw1-ip-pool-vlan_200]network 192.168.200.0 mask 255.255.255.0<br>
+  [sw1-ip-pool-vlan_200]gateway-list 192.168.200.1<br>
+  [sw1-ip-pool-vlan_200]dns-list 8.8.8.8<br>
+  [sw1-ip-pool-vlan_200]q<br>
+  [sw1]int vlan 10<br>
+  [sw1-Vlanif10]dhcp select global<br>
+  [sw1]int vlan 20<br>
+  [sw1-Vlanif20]dhcp select global<br>
+  [sw1]int vlan 200<br>
+  [sw1-Vlanif200]dhcp select global<br>
+  [sw1-Vlanif200]q<br>
+  [sw1]int Vlanif 10<br>
+  [sw1-Vlanif10]ip address 192.168.10.1 24<br>
+  [sw1-Vlanif10]int vlan 20<br>
+  [sw1-Vlanif20]ip addr 192.168.20.1 24<br>
+  [sw1-Vlanif20]int vlan 200<br>
+  [sw1-Vlanif200]ip addr 192.168.200.1 24<br>
+  [sw1]interface Vlanif 999<br>
+  [sw1-Vlanif999]ip addr 192.168.255.1 24<br>
+  [sw1-Vlanif999]q<br>
+  [sw1]telnet server enable<br>
+  [sw1]ip route-static 0.0.0.0 0 192.168.254.2 #r2路由<br>
+  [sw1]aaa<br>
+  [sw1-aaa]local-user shang.gao password cipher sgao18 privilege level 3<br>
+  [sw1-aaa]local-user shang.gao service-type telnet<br>
+  [sw1-aaa]q<br>
+  [sw1]user-interface vty 0 4<br>
+  [sw1-ui-vty0-4]authentication-mode aaa<br>
+  [sw1-ui-vty0-4]q<br>
+  [sw1]ospf 1<br>
+  [sw1-ospf-1]area 0<br>
+  [sw1-ospf-1-area-0.0.0.0]network 192.168.10.0 0.0.0.255<br>
+  [sw1-ospf-1-area-0.0.0.0]network 192.168.20.0 0.0.0.255<br>
+  [sw1-ospf-1-area-0.0.0.0]network 192.168.200.0 0.0.0.255<br>
+  [sw1-ospf-1-area-0.0.0.0] network 192.168.255.0 0.0.0.255<br>
+  [sw1-ospf-1-area-0.0.0.0] network 192.168.254.0 0.0.0.255<br>
+  [sw1-ospf-1-area-0.0.0.0]q<br>
+  [sw1]q<br>
+  <sw1>save<br>
+  The current configuration will be written to the device.<br>
+  Are you sure to continue?[Y/N]y<br>
+  <hr>
+  R1<br>
+  <Huawei>sys<br>
+  <Huawei>system-view<br>
+  Enter system view, return user view with Ctrl+Z.<br>
+  [Huawei]sysname R1<br>
+  [R1] ip route-static 0.0.0.0 0 12.1.1.6<br>
+  [R1]acl 2000<br>
+  [R1-acl-basic-2000]rule 5 permit source 192.168.0.0 0.0.255.255<br>
+  [R1-acl-basic-2000]interface GigabitEthernet  0/0/1<br>
+  [R1-GigabitEthernet0/0/1]nat outbound 2000<br>
+  [R1-GigabitEthernet0/0/1]ip address 12.1.1.1 255.255.255.248<br>
+  [R1-GigabitEthernet0/0/1]interface GigabitEthernet 0/0/0<br>
+  [R1-GigabitEthernet0/0/0]ip addr 192.168.254.2 24<br>
+  [R1-GigabitEthernet0/0/0]interface  Serial 2/0/1<br>
+  [R1-Serial2/0/1]ip address 192.168.253.1 24<br>
+  [R1]ospf 1<br>
+  [R1-ospf-1]area 0<br>
+  [R1-ospf-1-area-0.0.0.0] network 192.168.253.0 0.0.0.255<br>
+  [R1-ospf-1-area-0.0.0.0] network 192.168.254.0 0.0.0.255<br>
+  [R1-ospf-1-area-0.0.0.0]q<br>
+  [R1]aaa<br>
+  [R1-aaa]local-user shang.gao password cipher sgao18<br>
+  [R1-aaa]local-user shang.gao service-type ppp<br>
+  [R1-Serial2/0/1]ppp authentication-mode chap#需对端设置认证<br>
+  <hr>
+  R2<br>
+  <hr>
+  R3<br>
+  [r3]int Serial 2/0/1<br>
+  [r3-Serial2/0/1] ip address 192.168.253.2 255.255.255.0<br>
+  [r3-Serial2/0/1]ppp chap user shang.gao<br>
+  [r3-Serial2/0/1]ppp chap password  simple sgao18<br>
+  [r3-Serial2/0/1]interface GigabitEthernet0/0/0<br>
+  [r3-GigabitEthernet0/0/0]ip address 192.168.100.1 255.255.255.0<br>
+  [r3]ospf 1<br>
+  [r3-ospf-1]area 0.0.0.0<br>
+  [r3-ospf-1-area-0.0.0.0] network 192.168.100.0 0.0.0.255<br>
+  [r3-ospf-1-area-0.0.0.0] network 192.168.253.0 0.0.0.255 </p>
 </body>
 </html>
